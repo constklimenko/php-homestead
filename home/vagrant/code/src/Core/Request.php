@@ -6,7 +6,7 @@ namespace Narcom\Core;
 
 class Request
 {
-    private $controller = 'DefaultController';
+    private $controller = 'Default';
     private $method = 'index';
 
     public function __construct()
@@ -15,18 +15,29 @@ class Request
         $uri = array_diff($uri, ['']);
         var_dump($uri);
 
-        if(isset($uri[0])){
-            $this->controller = $uri[0];
-        }
         if(isset($uri[1])){
-            $this->method = $uri[1];
+            $this->controller = $uri[1];
+        }
+        if(isset($uri[2])){
+            $this->method = $uri[2];
         }
 
-        $this->ValidateCommand();
+        if($this->ValidateCommand()){
+
+        };
     }
 
     private function ValidateCommand()
     {
+        if(!class_exists("Narcom\Controller\\" . ucfirst($this->controller) .'Controller' )){
+            echo "Нет  контроллера" . ucfirst($this->controller) .'Controller<br>';
+            return false;
+        }
+
+        if(!method_exists("Narcom\Controller\\" . ucfirst($this->controller) .'Controller', $this->method )){
+            echo "Нет  метода" . $this->method ." в классе " . ucfirst($this->controller) .'Controller<br>';
+            return false;
+        }
 
     }
 
