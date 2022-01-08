@@ -9,6 +9,38 @@ class Request
     private $controller = 'Default';
     private $method = 'index';
 
+    /**
+     * @return mixed|string
+     */
+    public function getController()
+    {
+        return "Narcom\Controller\\" .ucfirst($this->controller) .'Controller';
+    }
+
+    /**
+     * @param mixed|string $controller
+     */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param mixed|string $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
     public function __construct()
     {
         $uri = explode('/', $_SERVER['REQUEST_URI']);
@@ -35,7 +67,7 @@ class Request
         }
 
         if(!method_exists("Narcom\Controller\\" . ucfirst($this->controller) .'Controller', $this->method )){
-            echo "Нет  метода" . $this->method ." в классе " . ucfirst($this->controller) .'Controller<br>';
+            echo "Нет  метода " . $this->method ." в классе " . ucfirst($this->controller) .'Controller<br>';
             return false;
         }
 
