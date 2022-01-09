@@ -4,9 +4,11 @@ namespace Narcom\Core;
 
 class App
 {
+    private static $configuration = [];
 
     public function __construct()
     {
+        self::$configuration = (new Config())->getConfig();
     }
 
     public function  run(){
@@ -22,5 +24,9 @@ class App
         $method = $request->getMethod();
 
         $controller->$method();
+    }
+
+    public static function config(){
+        return self::$configuration;
     }
 }

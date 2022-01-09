@@ -13,5 +13,8 @@
     "psr-4": {
       "Narcom\\": "src/"
     }
+  },
+  "require": {
+    "twig/twig": "^3.0"
   }
 }
